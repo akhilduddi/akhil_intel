@@ -2,6 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import { motion, AnimatePresence } from 'framer-motion';
 import styled from 'styled-components';
+import { Link, useNavigate } from 'react-router-dom';
 
 const RegisterContainer = styled.div`
   display: flex;
@@ -130,6 +131,7 @@ const Spinner = styled.div`
 `;
 
 const Register = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: '',
     password: '',
@@ -211,6 +213,9 @@ const Register = () => {
           email: '',
           phone: ''
         });
+        setTimeout(() => {
+          navigate('/login');
+        }, 1500);
       }
     } catch (error) {
       setSubmitError(error.response?.data?.message || 'Registration failed. Please try again.');
@@ -370,6 +375,15 @@ const Register = () => {
               </>
             ) : 'Register'}
           </Button>
+
+          <div style={{ textAlign: 'center', marginTop: '16px' }}>
+            <p style={{ color: '#475569', fontSize: '14px' }}>
+              Already have an account?{' '}
+              <Link to="/login" style={{ color: '#6366f1', textDecoration: 'none' }}>
+                Login here
+              </Link>
+            </p>
+          </div>
         </form>
       </FormCard>
     </RegisterContainer>
