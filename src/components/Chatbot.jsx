@@ -6,8 +6,17 @@ import styled from 'styled-components';
 // Get API key from environment variables
 const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
 
-// Log API key status (remove in production)
-console.log('API Key available:', !!API_KEY);
+// Debug environment variables
+console.log('Environment Variables Debug:');
+console.log('VITE_GEMINI_API_KEY exists:', !!import.meta.env.VITE_GEMINI_API_KEY);
+console.log('VITE_GEMINI_API_KEY length:', import.meta.env.VITE_GEMINI_API_KEY?.length);
+console.log('All env variables:', import.meta.env);
+console.log('Current working directory:', window.location.href);
+
+if (!API_KEY) {
+  console.error('API key is missing. Environment variables:', import.meta.env);
+  console.error('API key is not configured. Please check your environment variables. Make sure you have created a .env file in the IntelFrontend directory with VITE_GEMINI_API_KEY=your_api_key');
+}
 
 const JunnuChatbot = () => {
   const [messages, setMessages] = useState([]);
@@ -16,6 +25,7 @@ const JunnuChatbot = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isMinimized, setIsMinimized] = useState(false);
   const chatEndRef = useRef(null);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -50,9 +60,10 @@ const JunnuChatbot = () => {
     if (!input.trim()) return;
 
     if (!API_KEY) {
-      console.error('API key is not available');
+      console.error('API key is missing. Environment variables:', import.meta.env);
+      setError('API key is not configured. Please check your environment variables. Make sure you have created a .env file in the IntelFrontend directory with VITE_GEMINI_API_KEY=your_api_key');
       setMessages(prev => [...prev, {
-        text: 'Error: API key is not configured. Please check your environment variables.',
+        text: 'Error: API key is not configured. Please check your environment variables. Make sure you have created a .env file in the IntelFrontend directory with VITE_GEMINI_API_KEY=your_api_key',
         sender: 'bot',
         timestamp: new Date()
       }]);
@@ -70,9 +81,7 @@ const JunnuChatbot = () => {
     setLoading(true);
 
     try {
-      console.log('Making API request...');
-      // Make API call using the environment variable
-      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${API_KEY}`, {
+      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -80,18 +89,42 @@ const JunnuChatbot = () => {
         body: JSON.stringify({
           contents: [{
             parts: [{
-              text: input
+              text: `You are Chintu, a helpful AI assistant. Please provide a clear and concise response to: ${input}`
             }]
-          }]
+          }],
+          generationConfig: {
+            temperature: 0.7,
+            topK: 40,
+            topP: 0.95,
+            maxOutputTokens: 1024,
+          },
+          safetySettings: [
+            {
+              category: "HARM_CATEGORY_HARASSMENT",
+              threshold: "BLOCK_MEDIUM_AND_ABOVE"
+            },
+            {
+              category: "HARM_CATEGORY_HATE_SPEECH",
+              threshold: "BLOCK_MEDIUM_AND_ABOVE"
+            },
+            {
+              category: "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+              threshold: "BLOCK_MEDIUM_AND_ABOVE"
+            },
+            {
+              category: "HARM_CATEGORY_DANGEROUS_CONTENT",
+              threshold: "BLOCK_MEDIUM_AND_ABOVE"
+            }
+          ]
         })
       });
 
       if (!response.ok) {
-        throw new Error(`API request failed with status ${response.status}`);
+        const errorData = await response.json();
+        throw new Error(errorData.error?.message || `API request failed with status ${response.status}`);
       }
 
       const data = await response.json();
-      console.log('API Response:', data);
       
       if (!data.candidates || !data.candidates[0]?.content?.parts?.[0]?.text) {
         throw new Error('Invalid response from API');

@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './../styles/navbar.css';
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const location = useLocation();
 
   // Close menu when clicking outside
   useEffect(() => {
@@ -35,6 +36,10 @@ const Navbar = () => {
     setMenuOpen(!menuOpen);
   };
 
+  const isActive = (path) => {
+    return location.pathname === path;
+  };
+
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div className="container">
@@ -63,25 +68,67 @@ const Navbar = () => {
         >
           <ul className="navbar-nav ms-auto">
             <li className="nav-item">
-              <Link to="/" className="nav-link" onClick={() => setMenuOpen(false)}>Home</Link>
+              <Link 
+                to="/" 
+                className={`nav-link ${isActive('/') ? 'active' : ''}`} 
+                onClick={() => setMenuOpen(false)}
+              >
+                Home
+              </Link>
             </li>
             <li className="nav-item">
-              <Link to="/courses" className="nav-link" onClick={() => setMenuOpen(false)}>Courses</Link>
+              <Link 
+                to="/courses" 
+                className={`nav-link ${isActive('/courses') ? 'active' : ''}`} 
+                onClick={() => setMenuOpen(false)}
+              >
+                Courses
+              </Link>
             </li>
             <li className="nav-item">
-              <Link to="/discover-yourself" className="nav-link" onClick={() => setMenuOpen(false)}>Discover Yourself</Link>
+              <Link 
+                to="/discover-yourself" 
+                className={`nav-link ${isActive('/discover-yourself') ? 'active' : ''}`} 
+                onClick={() => setMenuOpen(false)}
+              >
+                Discover Yourself
+              </Link>
             </li>
             <li className="nav-item">
-              <Link to="/dashboard" className="nav-link" onClick={() => setMenuOpen(false)}>Dashboard</Link>
+              <Link 
+                to="/dashboard" 
+                className={`nav-link ${isActive('/dashboard') ? 'active' : ''}`} 
+                onClick={() => setMenuOpen(false)}
+              >
+                Dashboard
+              </Link>
             </li>
             <li className="nav-item">
-              <Link to="/testQuestions" className="nav-link" onClick={() => setMenuOpen(false)}>Test</Link>
+              <Link 
+                to="/testQuestions" 
+                className={`nav-link ${isActive('/testQuestions') ? 'active' : ''}`} 
+                onClick={() => setMenuOpen(false)}
+              >
+                Test
+              </Link>
             </li>
             <li className="nav-item">
-              <Link to="/supreme" className="nav-link" onClick={() => setMenuOpen(false)}>Supreme</Link>
+              <Link 
+                to="/supreme" 
+                className={`nav-link ${isActive('/supreme') ? 'active' : ''}`} 
+                onClick={() => setMenuOpen(false)}
+              >
+                Supreme
+              </Link>
             </li>
             <li className="nav-item">
-              <Link to="/materials" className="nav-link" onClick={() => setMenuOpen(false)}>Material</Link>
+              <Link 
+                to="/materials" 
+                className={`nav-link ${isActive('/materials') ? 'active' : ''}`} 
+                onClick={() => setMenuOpen(false)}
+              >
+                Material
+              </Link>
             </li>
           </ul>
         </div>

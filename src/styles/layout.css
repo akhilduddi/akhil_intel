@@ -281,13 +281,13 @@
     font-size: 1rem;
     margin: 0 10px 30px 10px;
   }
-
+  
   .cta-buttons {
     flex-direction: column;
     gap: 10px;
     padding: 0 15px;
   }
-
+  
   .primary-button, .secondary-button {
     width: 100%;
     text-align: center;

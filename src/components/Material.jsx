@@ -108,6 +108,152 @@ const NoMaterials = styled.div`
   font-size: 1.1rem;
 `;
 
+const YouTubeLinks = styled.div`
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e2e8f0;
+`;
+
+const VideoGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 1rem;
+`;
+
+const VideoCard = styled.div`
+  background: #f8fafc;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  border: 1px solid #e2e8f0;
+  height: 100%;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    border-color: #3b82f6;
+  }
+`;
+
+const ThumbnailContainer = styled.div`
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%;
+  background: #e2e8f0;
+  overflow: hidden;
+  border-bottom: 1px solid #e2e8f0;
+`;
+
+const Thumbnail = styled.img`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+`;
+
+const PlayButton = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 56px;
+  height: 56px;
+  background: rgba(59, 130, 246, 0.9);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  opacity: 0;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+  ${VideoCard}:hover & {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+`;
+
+const VideoInfo = styled.div`
+  padding: 1.25rem;
+  background: white;
+`;
+
+const VideoTitle = styled.h5`
+  margin: 0 0 0.5rem 0;
+  color: #1e293b;
+  font-size: 1rem;
+  line-height: 1.4;
+  font-weight: 600;
+`;
+
+const VideoDuration = styled.span`
+  font-size: 0.875rem;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+
+  &:before {
+    content: '▶';
+    font-size: 0.75em;
+  }
+`;
+
+const VideoResourcesCard = styled(MaterialCard)`
+  grid-column: 1 / -1;
+  margin-top: 2rem;
+  background: linear-gradient(to bottom, #ffffff, #f8fafc);
+`;
+
+const VideoSectionTitle = styled(SectionTitle)`
+  font-size: 2rem;
+  color: #1e293b;
+  margin-bottom: 2rem;
+  text-align: center;
+  position: relative;
+  padding-bottom: 1rem;
+
+  &:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 3px;
+    background: linear-gradient(to right, #3b82f6, #60a5fa);
+    border-radius: 2px;
+  }
+`;
+
+const TopicSection = styled.div`
+  margin-bottom: 3rem;
+  padding: 1.5rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+`;
+
+const TopicHeader = styled.h3`
+  color: #1e293b;
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  &:before {
+    content: '📚';
+    font-size: 1.2em;
+  }
+`;
+
 const Material = () => {
   const [selectedBranch, setSelectedBranch] = useState('');
 
@@ -131,6 +277,11 @@ const Material = () => {
             'Real-time Operating Systems',
             'Embedded Systems',
             'Server Operating Systems'
+          ],
+          youtubeUrls: [
+            'https://www.youtube.com/watch?v=26QPDBe-NB8', // Operating System Basics
+            'https://www.youtube.com/watch?v=9GDX-IyZ_C8', // Process Management
+            'https://www.youtube.com/watch?v=2quKyPnUShQ'  // Memory Management
           ]
         }
       },
@@ -151,6 +302,11 @@ const Material = () => {
             'Wireless Networks',
             'Network Security',
             'Distributed Systems'
+          ],
+          youtubeUrls: [
+            'https://www.youtube.com/watch?v=3QhU9jd03a0', // Computer Networks Basics
+            'https://www.youtube.com/watch?v=vv4y_uOneC0', // OSI Model
+            'https://www.youtube.com/watch?v=qiQR5rTSshw'  // TCP/IP Protocol
           ]
         }
       },
@@ -171,6 +327,11 @@ const Material = () => {
             'Game Development',
             'Web Development',
             'System Design'
+          ],
+          youtubeUrls: [
+            'https://www.youtube.com/watch?v=RBSGKlAvoiM', // Data Structures
+            'https://www.youtube.com/watch?v=8hly31xKli0', // Algorithms
+            'https://www.youtube.com/watch?v=09_LlHjoEiY'  // Big O Notation
           ]
         }
       },
@@ -191,6 +352,11 @@ const Material = () => {
             'Accessibility Standards',
             'Cross-Browser Compatibility',
             'Code Organization and Maintainability'
+          ],
+          youtubeUrls: [
+            'https://www.youtube.com/watch?v=1Rs2ND1luYQ', // HTML/CSS
+            'https://www.youtube.com/watch?v=PkZNo7MFNFg', // JavaScript
+            'https://www.youtube.com/watch?v=w7ejDZ8SWv8'  // React
           ]
         }
       },
@@ -211,6 +377,11 @@ const Material = () => {
             'Cloud Services',
             'Enterprise Systems',
             'IoT Applications'
+          ],
+          youtubeUrls: [
+            'https://www.youtube.com/watch?v=Oe421EPjeBE', // Node.js
+            'https://www.youtube.com/watch?v=7YcW25PHnAA', // Express.js
+            'https://www.youtube.com/watch?v=lsMQRaeKNDk'  // REST APIs
           ]
         }
       },
@@ -231,6 +402,11 @@ const Material = () => {
             'Real-time Applications',
             'Content Management Systems',
             'E-commerce Platforms'
+          ],
+          youtubeUrls: [
+            'https://www.youtube.com/watch?v=HXV3zeQKqGY', // SQL
+            'https://www.youtube.com/watch?v=Www6cTUyCYQ', // MongoDB
+            'https://www.youtube.com/watch?v=4cWkVbC2bNE'  // Database Design
           ]
         }
       }
@@ -289,12 +465,12 @@ const Material = () => {
     <Container>
       <Header>
         <Title>Study Materials</Title>
-        <Subtitle>Access comprehensive reading materials for your branch</Subtitle>
+        <Subtitle>Access comprehensive learning resources for your branch</Subtitle>
       </Header>
 
       <BranchSelector>
         <Select value={selectedBranch} onChange={handleBranchChange}>
-          <option value="">Select your branch</option>
+          <option value="">Select Branch</option>
           <option value="computer-science">Computer Science</option>
           <option value="electronics">Electronics</option>
           <option value="mechanical">Mechanical</option>
@@ -302,53 +478,99 @@ const Material = () => {
       </BranchSelector>
 
       {selectedBranch ? (
-        <MaterialsGrid>
-          {materials[selectedBranch]?.map((material, index) => (
-            <MaterialCard key={index}>
-              <MaterialTitle>{material.title}</MaterialTitle>
-              <MaterialContent>
-                <Section>
-                  <SectionTitle>Overview</SectionTitle>
-                  <p>{material.content.overview}</p>
-                </Section>
-                
-                <Section>
-                  <SectionTitle>Key Concepts</SectionTitle>
-                  <List>
-                    {material.content.keyConcepts.map((concept, idx) => (
-                      <ListItem key={idx}>{concept}</ListItem>
-                    ))}
-                  </List>
-                </Section>
-
-                {material.content.applications && (
+        <>
+          <MaterialsGrid>
+            {materials[selectedBranch].map((material, index) => (
+              <MaterialCard key={index}>
+                <MaterialTitle>{material.title}</MaterialTitle>
+                <MaterialContent>
                   <Section>
-                    <SectionTitle>Applications</SectionTitle>
+                    <SectionTitle>Overview</SectionTitle>
+                    <p>{material.content.overview}</p>
+                  </Section>
+                  
+                  <Section>
+                    <SectionTitle>Key Concepts</SectionTitle>
                     <List>
-                      {material.content.applications.map((app, idx) => (
-                        <ListItem key={idx}>{app}</ListItem>
+                      {material.content.keyConcepts.map((concept, idx) => (
+                        <ListItem key={idx}>{concept}</ListItem>
                       ))}
                     </List>
                   </Section>
-                )}
 
-                {material.content.bestPractices && (
-                  <Section>
-                    <SectionTitle>Best Practices</SectionTitle>
-                    <List>
-                      {material.content.bestPractices.map((practice, idx) => (
-                        <ListItem key={idx}>{practice}</ListItem>
-                      ))}
-                    </List>
-                  </Section>
-                )}
-              </MaterialContent>
-            </MaterialCard>
-          ))}
-        </MaterialsGrid>
+                  {material.content.applications && (
+                    <Section>
+                      <SectionTitle>Applications</SectionTitle>
+                      <List>
+                        {material.content.applications.map((app, idx) => (
+                          <ListItem key={idx}>{app}</ListItem>
+                        ))}
+                      </List>
+                    </Section>
+                  )}
+
+                  {material.content.bestPractices && (
+                    <Section>
+                      <SectionTitle>Best Practices</SectionTitle>
+                      <List>
+                        {material.content.bestPractices.map((practice, idx) => (
+                          <ListItem key={idx}>{practice}</ListItem>
+                        ))}
+                      </List>
+                    </Section>
+                  )}
+                </MaterialContent>
+              </MaterialCard>
+            ))}
+          </MaterialsGrid>
+
+          {/* Only show Video Resources for Computer Science branch */}
+          {selectedBranch === 'computer-science' && (
+            <VideoResourcesCard>
+              <VideoSectionTitle>Video Resources</VideoSectionTitle>
+              {materials[selectedBranch].map((material, materialIndex) => (
+                <TopicSection key={materialIndex}>
+                  <TopicHeader>{material.title}</TopicHeader>
+                  <VideoGrid>
+                    {material.content.youtubeUrls?.map((url, videoIndex) => {
+                      const videoId = url.split('v=')[1];
+                      const thumbnailUrl = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+                      return (
+                        <VideoCard key={`${materialIndex}-${videoIndex}`}>
+                          <a href={url} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
+                            <ThumbnailContainer>
+                              <Thumbnail 
+                                src={thumbnailUrl} 
+                                alt={`${material.title} - Video ${videoIndex + 1}`}
+                                onError={(e) => {
+                                  e.target.src = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+                                }}
+                              />
+                              <PlayButton>
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                  <path d="M8 5v14l11-7z" fill="currentColor"/>
+                                </svg>
+                              </PlayButton>
+                            </ThumbnailContainer>
+                            <VideoInfo>
+                              <VideoTitle>
+                                {material.title} - Part {videoIndex + 1}
+                              </VideoTitle>
+                              <VideoDuration>Click to watch</VideoDuration>
+                            </VideoInfo>
+                          </a>
+                        </VideoCard>
+                      );
+                    })}
+                  </VideoGrid>
+                </TopicSection>
+              ))}
+            </VideoResourcesCard>
+          )}
+        </>
       ) : (
         <NoMaterials>
-          Please select your branch to view available materials
+          Please select a branch to view study materials
         </NoMaterials>
       )}
     </Container>
