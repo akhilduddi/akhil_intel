@@ -14,6 +14,7 @@ import Home from './components/Home';
 import DiscoverYourSelf from './components/DiscoverYourSelf';
 import Supreme from './components/Supreme';
 import Material from './components/Material';
+import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
   return (
@@ -22,21 +23,63 @@ function App() {
         <Navbar />
         <div className="main-content">
           <Routes>
+            {/* Public Routes */}
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/courses" element={<CourseList />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/admin" element={<AdminPanel />} />
-            <Route path="/module/:id" element={<ModuleView />} />
-            <Route path="/test/:id" element={<TestQuestion />} />
-            <Route path="/results/:id" element={<TestResults />} />
-            <Route path="/testQuestions" element={<TestQuestion />} />
-            <Route path="/discover-yourself" element={<DiscoverYourSelf />} />
-            <Route path="/supreme" element={<Supreme />} />
-
             <Route path="/materials" element={<Material />} />
-          
+
+            {/* Protected Routes */}
+            <Route path="/discover-yourself" element={
+              <ProtectedRoute>
+                <DiscoverYourSelf />
+              </ProtectedRoute>
+            } />
+            <Route path="/supreme" element={
+              <ProtectedRoute>
+                <Supreme />
+              </ProtectedRoute>
+            } />
+            <Route path="/courses" element={
+              <ProtectedRoute>
+                <CourseList />
+              </ProtectedRoute>
+            } />
+            <Route path="/profile" element={
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            } />
+            <Route path="/admin" element={
+              <ProtectedRoute>
+                <AdminPanel />
+              </ProtectedRoute>
+            } />
+            <Route path="/module/:id" element={
+              <ProtectedRoute>
+                <ModuleView />
+              </ProtectedRoute>
+            } />
+            <Route path="/test/:id" element={
+              <ProtectedRoute>
+                <TestQuestion />
+              </ProtectedRoute>
+            } />
+            <Route path="/results/:id" element={
+              <ProtectedRoute>
+                <TestResults />
+              </ProtectedRoute>
+            } />
+            <Route path="/testQuestions" element={
+              <ProtectedRoute>
+                <TestQuestion />
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard" element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            } />
           </Routes>
         </div>
       </div>

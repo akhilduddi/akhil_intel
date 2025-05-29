@@ -38,7 +38,7 @@ const TestQuestion = () => {
   const fetchQuestions = (branch) => {
     setLoading(true);
     setError(null);
-    fetch(`https://render-backend-7hyu.onrender.com/questions/pretest/${branch}`)
+    fetch(`https://intel-backend-live.onrender.com/questions/pretest/${branch}`)
       .then((res) => {
         if (!res.ok) throw new Error("Failed to fetch questions");
         return res.json();
@@ -88,7 +88,7 @@ const TestQuestion = () => {
     setShowPopup(true);
 
     try {
-      await fetch("https://render-backend-7hyu.onrender.com/submit-answers", {
+      await fetch("https://intel-backend-live.onrender.com/submit-answers", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ 

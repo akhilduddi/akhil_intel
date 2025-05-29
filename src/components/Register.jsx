@@ -200,7 +200,7 @@ const Register = () => {
     setSubmitError('');
     
     try {
-      const response = await axios.post('https://render-backend-7hyu.onrender.com/register', formData);
+      const response = await axios.post('https://intel-backend-live.onrender.com/register', formData);
       
       if (response.status === 200 || response.status === 201) {
         setSubmitSuccess(true);

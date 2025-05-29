@@ -71,7 +71,7 @@ const SupremeTest = () => {
       
       try {
         const response = await axios.get(
-          `https://render-backend-7hyu.onrender.com/questions/branch/${encodeURIComponent(filters.branch)}/level/${encodeURIComponent(filters.level)}/module/${encodeURIComponent(filters.module)}`
+          `https://intel-backend-live.onrender.com/questions/branch/${encodeURIComponent(filters.branch)}/level/${encodeURIComponent(filters.level)}/module/${encodeURIComponent(filters.module)}`
         );
         setQuestions(response.data);
       } catch (err) {
@@ -150,7 +150,7 @@ const SupremeTest = () => {
     setShowPopup(true);
 
     try {
-      await axios.post("https://render-backend-7hyu.onrender.com/submit-answers", { 
+      await axios.post("https://intel-backend-live.onrender.com/submit-answers", { 
         answers, 
         score: calculatedScore, 
         percentage: percent,
